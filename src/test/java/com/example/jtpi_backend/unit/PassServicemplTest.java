@@ -62,21 +62,21 @@ public class PassServicemplTest {
     }
 
     @Test
-    public void testFetchPassSearchResults() {
+    public void testFetchBookmarkResults() {
         // Given
         List<Integer> passIds = Arrays.asList(1, 2);
         PassInformation passInformation1 = createSamplePassInformation();
         PassInformation passInformation2 = createSamplePassInformation();
         passInformation2.setpassID(2);
 
-        when(passRepositorympl.findPassSearchResultById(1)).thenReturn(new PassSearchResultDTO(
+        when(passRepositorympl.findBookmarkResultById(1)).thenReturn(new PassSearchResultDTO(
                 passInformation1.getpassID(),
                 passInformation1.getImageURL(),
                 passInformation1.getTitle(),
                 passInformation1.getPrice()
         ));
 
-        when(passRepositorympl.findPassSearchResultById(2)).thenReturn(new PassSearchResultDTO(
+        when(passRepositorympl.findBookmarkResultById(2)).thenReturn(new PassSearchResultDTO(
                 passInformation2.getpassID(),
                 passInformation2.getImageURL(),
                 passInformation2.getTitle(),
@@ -84,7 +84,7 @@ public class PassServicemplTest {
         ));
 
         // When
-        List<PassSearchResultDTO> results = passServicempl.fetchPassSearchResults(passIds);
+        List<PassSearchResultDTO> results = passServicempl.fetchBookmarkResults(passIds);
 
         // Then
         assertNotNull(results);

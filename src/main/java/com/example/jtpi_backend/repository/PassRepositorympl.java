@@ -25,7 +25,7 @@ public class PassRepositorympl {
         return null;
     }
 
-    public PassSearchResultDTO findPassSearchResultById(Integer passId) {
+    public PassSearchResultDTO findBookmarkResultById(Integer passId) {
         Optional<PassInformation> passInformationOpt = passRepository.findById(passId);
         if (passInformationOpt.isPresent()) {
             PassInformation passInformation = passInformationOpt.get();

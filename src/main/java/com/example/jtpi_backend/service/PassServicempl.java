@@ -24,9 +24,9 @@ public class PassServicempl implements PassService {
     }
 
     @Override
-    public List<PassSearchResultDTO> fetchPassSearchResults(List<Integer> passIds) {
+    public List<PassSearchResultDTO> fetchBookmarkResults(List<Integer> passIds) {
         return passIds.stream()
-                .map(passRepositorympl::findPassSearchResultById)
+                .map(passRepositorympl::findBookmarkResultById)
                 .collect(Collectors.toList());
     }
 }

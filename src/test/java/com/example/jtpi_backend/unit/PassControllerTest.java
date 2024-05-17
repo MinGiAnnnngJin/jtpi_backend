@@ -62,14 +62,14 @@ public class PassControllerTest {
     }
 
     @Test
-    public void testGetPassSearchResults() throws Exception {
+    public void testGetBookmarkResults() throws Exception {
         // Given
         List<PassSearchResultDTO> searchResults = Arrays.asList(
                 new PassSearchResultDTO(1, "http://example.com/image1.jpg", "Pass 1", 100),
                 new PassSearchResultDTO(2, "http://example.com/image2.jpg", "Pass 2", 150)
         );
 
-        when(passService.fetchPassSearchResults(anyList())).thenReturn(searchResults);
+        when(passService.fetchBookmarkResults(anyList())).thenReturn(searchResults);
 
         // When & Then
         mockMvc.perform(MockMvcRequestBuilders.post("/passes/search")

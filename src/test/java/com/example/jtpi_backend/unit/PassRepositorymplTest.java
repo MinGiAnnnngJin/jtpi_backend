@@ -48,7 +48,7 @@ public class PassRepositorymplTest {
         when(passRepository.findById(anyInt())).thenReturn(Optional.of(passInformation));
 
         // When
-        PassSearchResultDTO result = passRepositorympl.findPassSearchResultById(1);
+        PassSearchResultDTO result = passRepositorympl.findBookmarkResultById(1);
 
         // Then
         assertNotNull(result);

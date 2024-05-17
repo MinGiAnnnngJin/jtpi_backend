@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface PassService {
     PassDetailDTO fetchPassDetail(Integer passId);
-    List<PassSearchResultDTO> fetchPassSearchResults(List<Integer> passIds);
+    List<PassSearchResultDTO> fetchBookmarkResults(List<Integer> passIds);
 }

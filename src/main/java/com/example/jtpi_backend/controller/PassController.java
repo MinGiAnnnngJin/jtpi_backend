@@ -25,7 +25,7 @@ public class PassController {
     }
 
     @PostMapping("/search")
-    public List<PassSearchResultDTO> getPassSearchResults(@RequestBody List<Integer> passIds) {
-        return passService.fetchPassSearchResults(passIds);
+    public List<PassSearchResultDTO> getBookmarkResults(@RequestBody List<Integer> passIds) {
+        return passService.fetchBookmarkResults(passIds);
     }
 }
