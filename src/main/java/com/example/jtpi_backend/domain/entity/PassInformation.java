@@ -18,8 +18,6 @@ public class PassInformation {
     @Column(length = 20, nullable = false)
     private String title;
 
-    @Column(length = 100, nullable = false)
-    private String description;
 
     @Column(nullable = false)
     private Integer price;
@@ -47,23 +45,12 @@ public class PassInformation {
 
     @Column(nullable = false)
     private Integer quantityAdults = 0;
-    // Constructors
-    public PassInformation() {}
 
-    public PassInformation(SiteList site, String title, String description, Integer price, Integer period, String transportType, String cityNames, LocalDateTime createAt, LocalDateTime updateAt, String imageURL) {
-        this.site = site;
-        this.title = title;
-        this.description = description;
-        this.price = price;
-        this.period = period;
-        this.transportType = transportType;
-        this.cityNames = cityNames;
-        this.createAt = createAt;
-        this.updateAt = updateAt;
-        this.imageURL = imageURL;
-    }
+    private String benefitInformation;
+    private String reservationInformation;
+    private String refundInformation;
+    private String productDescription;
 
-    // Getters and Setters
     public Integer getpassID() {
         return passID;
     }
@@ -86,14 +73,6 @@ public class PassInformation {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public Integer getPrice() {
@@ -165,5 +144,37 @@ public class PassInformation {
 
     public void setQuantityAdults(Integer quantityAdults) {
         this.quantityAdults = quantityAdults;
+    }
+
+    public String getBenefitInformation() {
+        return benefitInformation;
+    }
+
+    public void setBenefitInformation(String benefitInformation) {
+        this.benefitInformation = benefitInformation;
+    }
+
+    public String getReservationInformation() {
+        return reservationInformation;
+    }
+
+    public void setReservationInformation(String reservationInformation) {
+        this.reservationInformation = reservationInformation;
+    }
+
+    public String getRefundInformation() {
+        return refundInformation;
+    }
+
+    public void setRefundInformation(String refundInformation) {
+        this.refundInformation = refundInformation;
+    }
+
+    public void setProductDescription(String productDescription) {
+        this.productDescription = productDescription;
+    }
+
+    public String getProductDescription() {
+        return productDescription;
     }
 }

@@ -43,9 +43,11 @@ public class PassRepositorympl {
                 passInformation.getCityNames(),
                 passInformation.getPrice(),
                 passInformation.getPeriod(),
-                passInformation.getDescription(),
-                "Reservation information here",
-                "Refund information here"
+                passInformation.getProductDescription(),
+                passInformation.getBenefitInformation(),
+                passInformation.getReservationInformation(),
+                passInformation.getRefundInformation()
+
         );
     }
 
@@ -54,6 +56,7 @@ public class PassRepositorympl {
         dto.setpassID(passInformation.getpassID());
         dto.setImageUrl(passInformation.getImageURL());
         dto.setTitle(passInformation.getTitle());
+        dto.setCityNames(passInformation.getCityNames());
         dto.setPrice(passInformation.getPrice());
         return dto;
     }

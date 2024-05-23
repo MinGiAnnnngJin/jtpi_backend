@@ -8,11 +8,12 @@ public class PassDetailDTO {
     private String cityNames;
     private Integer price;
     private Integer period;
+    private String productDescription;
     private String benefit_information;
     private String reservation_information;
     private String refund_information;
 
-    public PassDetailDTO(Integer passId, String imageUrl, String transportType, String title, String cityNames, Integer price, Integer period, String benefit_information, String reservation_information, String refund_information ) {
+    public PassDetailDTO(Integer passId, String imageUrl, String transportType, String title, String cityNames, Integer price, Integer period,String productDescription, String benefit_information, String reservation_information, String refund_information ) {
         this.passId = passId;
         this.imageUrl = imageUrl;
         this.transportType = transportType;
@@ -20,6 +21,7 @@ public class PassDetailDTO {
         this.cityNames = cityNames;
         this.price = price;
         this.period = period;
+        this.productDescription=productDescription;
         this.benefit_information = benefit_information;
         this.reservation_information = reservation_information;
         this.refund_information = refund_information;
@@ -75,6 +77,9 @@ public class PassDetailDTO {
         this.period = period;
     }
 
+    public String getProductDescription(){return productDescription;}
+    public void setProductDescription(String productDescription){this.productDescription=productDescription;}
+
     public String getBenefit_information() {
         return benefit_information;
     }
@@ -106,6 +111,7 @@ public class PassDetailDTO {
                 ", cityNames='" + cityNames + '\'' +
                 ", price=" + price + '\'' +
                 ", period=" + period + '\'' +
+                ", productDescription='" + productDescription + '\'' +
                 ", benefit_information='" + benefit_information + '\'' +
                 ", reservation_information='" + reservation_information + '\'' +
                 ", refund_information='" + refund_information + '\'' +

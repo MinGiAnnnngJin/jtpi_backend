@@ -62,7 +62,7 @@ public class PassRepositorymplTest {
         passInformation.setPrice(100);
         passInformation.setTransportType("Bus");
         passInformation.setCityNames("Seoul");
-        passInformation.setDescription("Sample description");
+        passInformation.setProductDescription("Sample description");
         passInformation.setPeriod(7);
         passInformation.setImageURL("http://example.com/image.jpg");
         return passInformation;

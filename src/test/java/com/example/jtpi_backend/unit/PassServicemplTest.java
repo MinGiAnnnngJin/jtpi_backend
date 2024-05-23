@@ -41,9 +41,10 @@ public class PassServicemplTest {
                 passInformation.getCityNames(),
                 passInformation.getPrice(),
                 passInformation.getPeriod(),
-                passInformation.getDescription(),
-                "Reservation info",
-                "Refund info"
+                passInformation.getProductDescription(),
+               passInformation.getBenefitInformation(),
+                passInformation.getReservationInformation(),
+                passInformation.getReservationInformation()
         ));
 
         // When
@@ -73,6 +74,7 @@ public class PassServicemplTest {
                 passInformation1.getpassID(),
                 passInformation1.getImageURL(),
                 passInformation1.getTitle(),
+                passInformation1.getCityNames(),
                 passInformation1.getPrice()
         ));
 
@@ -80,6 +82,7 @@ public class PassServicemplTest {
                 passInformation2.getpassID(),
                 passInformation2.getImageURL(),
                 passInformation2.getTitle(),
+                passInformation2.getCityNames(),
                 passInformation2.getPrice()
         ));
 
@@ -104,7 +107,7 @@ public class PassServicemplTest {
         passInformation.setPrice(100);
         passInformation.setTransportType("Bus");
         passInformation.setCityNames("Seoul");
-        passInformation.setDescription("Sample description");
+        passInformation.setProductDescription("Sample description");
         passInformation.setPeriod(7);
         passInformation.setImageURL("http://example.com/image.jpg");
         return passInformation;

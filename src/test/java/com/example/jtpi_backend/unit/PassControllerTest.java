@@ -34,6 +34,7 @@ public class PassControllerTest {
     @MockBean
     private PassService passService;
 
+//상세정보 테스트
     @Test
     public void testGetPassDetail() throws Exception {
         // Given
@@ -45,6 +46,7 @@ public class PassControllerTest {
                 "Seoul",
                 100,
                 7,
+                "Description cheer up baby",
                 "Sample description",
                 "Reservation info",
                 "Refund info"
@@ -60,13 +62,13 @@ public class PassControllerTest {
                 .andExpect(jsonPath("$.title").value("Sample Pass"))
                 .andExpect(jsonPath("$.price").value(100));
     }
-
+//북마크 테스트
     @Test
     public void testGetBookmarkResults() throws Exception {
         // Given
         List<PassSearchResultDTO> searchResults = Arrays.asList(
-                new PassSearchResultDTO(1, "http://example.com/image1.jpg", "Pass 1", 100),
-                new PassSearchResultDTO(2, "http://example.com/image2.jpg", "Pass 2", 150)
+                new PassSearchResultDTO(1, "http://example.com/image1.jpg", "Pass 1","gpgp", 100),
+                new PassSearchResultDTO(2, "http://example.com/image2.jpg", "Pass 2","dsjd", 150)
         );
 
         when(passService.fetchBookmarkResults(anyList())).thenReturn(searchResults);
