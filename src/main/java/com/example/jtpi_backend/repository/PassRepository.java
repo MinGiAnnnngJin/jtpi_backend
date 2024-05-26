@@ -1,5 +1,6 @@
 package com.example.jtpi_backend.repository;
 
+import com.example.jtpi_backend.domain.SearchParameters;
 import com.example.jtpi_backend.domain.entity.PassInformation;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -23,6 +24,7 @@ public interface PassRepository extends JpaRepository<PassInformation, Integer> 
     List<PassInformation> findSlideShowRecommendedPasses();
 
     //검색
+    //검색
     @Query("SELECT p FROM PassInformation p WHERE " +
             "(:query IS NULL OR p.title LIKE :query OR p.cityNames LIKE :query) OR " +
             "(:departureCity IS NULL OR p.cityNames LIKE :departureCity) OR " +
@@ -43,3 +45,5 @@ public interface PassRepository extends JpaRepository<PassInformation, Integer> 
             @Param("quantityChildren") Integer quantityChildren
     );
 }
+
+

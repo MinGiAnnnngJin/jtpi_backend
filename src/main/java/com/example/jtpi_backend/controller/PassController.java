@@ -5,6 +5,7 @@ import com.example.jtpi_backend.domain.dto.PassSearchResultDTO;
 import com.example.jtpi_backend.domain.dto.SlideShowPassDTO;
 import com.example.jtpi_backend.service.PassService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -17,11 +18,6 @@ public class PassController {
     @Autowired
     public PassController(PassService passService) {
         this.passService = passService;
-    }
-    //테스트
-    @GetMapping("/hello")
-    public String hello() {
-        return "Hello, World!";
     }
 
     //신규

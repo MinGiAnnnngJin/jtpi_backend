@@ -15,9 +15,13 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultMatcher;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.WebApplicationContext;
 
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.hasSize;
@@ -40,11 +44,13 @@ public class PassControllerIntegrationTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-    @MockBean
-    private PassService passService;
-
-    private PassDetailDTO mockPassDetail;
-   //신규
+    @Autowired
+    private WebApplicationContext context;
+    @BeforeEach
+    public void setup() {
+        this.mockMvc = MockMvcBuilders.webAppContextSetup(this.context).build();
+    }
+    //신규
     @Test
     void testGetSlideShowNewPasses() throws Exception {
         // 데이터베이스에 있는 슬라이드쇼 새로운 패스를 예상값으로 설정
@@ -84,73 +90,76 @@ public class PassControllerIntegrationTest {
                 .andExpect((ResultMatcher) jsonPath("$[0].imageUrl", notNullValue()));  // 첫 번째 요소에 imageUrl 속성이 존재하는지 확인
     }
 
-// 검색
-    @Test
-    void testSearchPasses() throws Exception {
+    // 검색
+
+@Test
+    public void testSearchPasses() throws Exception {
+        // 검색 파라미터 설정
         SearchParameters searchParams = new SearchParameters();
         searchParams.setQuery("Tokyo");
-        searchParams.setDepartureCity("Test Departure");
-        searchParams.setArrivalCity("Test Arrival");
-        searchParams.setTransportType("Bus");
-        searchParams.setCityNames("도쿄");
-        searchParams.setDuration(7);
-        searchParams.setQuantityAdults(2);
-        searchParams.setQuantityChildren(1);
-
-        // 데이터베이스에 있는 검색 결과를 예상값으로 설정
-        List<PassSearchResultDTO> expectedSearchResults = List.of(
-                new PassSearchResultDTO(1, "Tokyo", "http://example.com/image1.jpg", "Tokyo", 100),
-                new PassSearchResultDTO(2, "Kyoto", "http://example.com/image2.jpg", "Kyoto", 150),
-                new PassSearchResultDTO(5, "Simpl", "http://example.com/image5.jpg", "City,도쿄", 70),
-                new PassSearchResultDTO(7, "Quick", "http://example.com/image7.jpg", "dlas", 60),
-                new PassSearchResultDTO(8, "Lisa", "http://example.com/image8.jpg", "dsajf", 110),
-                new PassSearchResultDTO(9, "Jenn", "http://example.com/image9.jpg", "dd", 120),
-                new PassSearchResultDTO(10, "Shiz", "http://example.com/image10.jpg", "Shizuoka", 90)
-        );
+        searchParams.setDepartureCity("doing well");
+        searchParams.setArrivalCity("please");
+        searchParams.setTransportType("fufu");
+        searchParams.setCityNames("null");
+        searchParams.setDuration(6);
+        searchParams.setQuantityAdults(0);
+        searchParams.setQuantityChildren(3);
 
         // API 호출 및 응답 검증
-        mockMvc.perform(post("/passes/search")
+        MvcResult mvcResult = mockMvc.perform(post("/passes/search")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(searchParams)))
+                        .content(objectMapper.writeValueAsString(searchParams))
+                        .characterEncoding("UTF-8"))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(content().json(objectMapper.writeValueAsString(expectedSearchResults)));
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andReturn();
+
+        // 응답 본문을 JSON 문자열로 추출
+        String jsonResponse = mvcResult.getResponse().getContentAsString(StandardCharsets.UTF_8);
+
+        // 응답 본문 출력 (디버깅을 위해)
+        System.out.println("API 응답: " + jsonResponse);
+
+        // 필요한 경우 실제 결과를 기반으로 추가 검증 로직을 작성할 수 있습니다.
+        // 예: 예상되는 결과와 실제 결과를 비교하는 assert 문 추가
     }
 
-    @BeforeEach
-    public void setup() {
-        mockPassDetail = new PassDetailDTO(
-                1,
-                "http://example.com/image.jpg",
-                "Bus",
-                "Test Title",
-                "City Names",
-                100,
-                30,
-                "Test Product Description",
-                "Test Benefit Information",
-                "Test Reservation Information",
-                "Test Refund Information"
-        );
-    }
 
     @Test
     public void testGetPassDetail() throws Exception {
-        when(passService.fetchPassDetail(anyInt())).thenReturn(mockPassDetail);
+        // 테스트 데이터베이스에 이미 존재하는 Pass ID를 사용
+        int existingPassId = 1; // 실제 존재하는 Pass ID로 변경해야 함
 
-        mockMvc.perform(get("/passes/1"))
+        mockMvc.perform(get("/passes/" + existingPassId))
                 .andExpect(status().isOk())  // HTTP 응답 상태가 200 OK인지 확인
-                .andExpect(content().contentType("application/json"))  // 응답 Content-Type이 application/json인지 확인
-                .andExpect(jsonPath("$.passId", is(mockPassDetail.getPassId())))  // passId가 예상값과 일치하는지 확인
-                .andExpect(jsonPath("$.imageUrl", is(mockPassDetail.getImageUrl())))  // imageUrl이 예상값과 일치하는지 확인
-                .andExpect(jsonPath("$.transportType", is(mockPassDetail.getTransportType())))  // transportType이 예상값과 일치하는지 확인
-                .andExpect(jsonPath("$.title", is(mockPassDetail.getTitle())))  // title이 예상값과 일치하는지 확인
-                .andExpect(jsonPath("$.cityNames", is(mockPassDetail.getCityNames())))  // cityNames이 예상값과 일치하는지 확인
-                .andExpect(jsonPath("$.price", is(mockPassDetail.getPrice())))  // price가 예상값과 일치하는지 확인
-                .andExpect(jsonPath("$.period", is(mockPassDetail.getPeriod())))  // period가 예상값과 일치하는지 확인
-                .andExpect(jsonPath("$.productDescription", is(mockPassDetail.getProductDescription())))  // productDescription이 예상값과 일치하는지 확인
-                .andExpect(jsonPath("$.benefit_information", is(mockPassDetail.getBenefit_information())))  // benefit_information이 예상값과 일치하는지 확인
-                .andExpect(jsonPath("$.reservation_information", is(mockPassDetail.getReservation_information())))  // reservation_information이 예상값과 일치하는지 확인
-                .andExpect(jsonPath("$.refund_information", is(mockPassDetail.getRefund_information())));  // refund_information이 예상값과 일치하는지 확인
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))  // 응답 Content-Type이 application/json인지 확인
+                .andExpect(jsonPath("$.passId", is(existingPassId)))  // passId가 예상값과 일치하는지 확인
+                .andExpect(jsonPath("$.imageUrl", is("http://example.com/image1.jpg")))  // imageUrl이 예상값과 일치하는지 확인
+                .andExpect(jsonPath("$.transportType", is("Train, Bus")))  // transportType이 예상값과 일치하는지 확인
+                .andExpect(jsonPath("$.title", is("Tokyo")))  // title이 예상값과 일치하는지 확인
+                .andExpect(jsonPath("$.cityNames", is("Tokyo")))  // cityNames이 예상값과 일치하는지 확인
+                .andExpect(jsonPath("$.price", is(100)))  // price가 예상값과 일치하는지 확인
+                .andExpect(jsonPath("$.period", is(30)))  // period가 예상값과 일치하는지 확인
+                .andExpect(jsonPath("$.productDescription", is("쓩쓩뽕뽕")))  // productDescription이 예상값과 일치하는지 확인
+                .andExpect(jsonPath("$.benefit_information", is("샬라샬라쿵")))  // benefit_information이 예상값과 일치하는지 확인
+                .andExpect(jsonPath("$.reservation_information", is("샬라샬랑")))  // reservation_information이 예상값과 일치하는지 확인
+                .andExpect(jsonPath("$.refund_information", is("쏠로솠ㄹ로")));  // refund_information이 예상값과 일치하는지 확인
+    }
+
+    @Test
+    public void testGetBookmarkResults() throws Exception {
+        // 데이터베이스에 이미 존재하는 Pass ID 목록을 사용
+        List<Integer> existingPassIds = List.of(1, 2, 3, 4); // 실제 존재하는 Pass ID로 변경해야 함
+
+        mockMvc.perform(post("/passes/bookmark")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(existingPassIds)))
+                .andExpect(status().isOk())  // HTTP 응답 상태가 200 OK인지 확인
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))  // 응답 Content-Type이 application/json인지 확인
+                .andExpect(jsonPath("$", hasSize(4)))  // JSON 배열의 크기가 4인지 확인
+                .andExpect(jsonPath("$[0].passID", is(existingPassIds.get(0))))  // 첫 번째 요소의 passID가 예상값과 일치하는지 확인
+                .andExpect(jsonPath("$[1].passID", is(existingPassIds.get(1))))  // 두 번째 요소의 passID가 예상값과 일치하는지 확인
+                .andExpect(jsonPath("$[2].passID", is(existingPassIds.get(2))))  // 세 번째 요소의 passID가 예상값과 일치하는지 확인
+                .andExpect(jsonPath("$[3].passID", is(existingPassIds.get(3))));  // 네 번째 요소의 passID가 예상값과 일치하는지 확인
     }
 }

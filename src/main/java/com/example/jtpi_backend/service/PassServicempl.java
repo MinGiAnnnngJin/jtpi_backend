@@ -23,12 +23,13 @@ public class PassServicempl implements PassService {
         this.passRepositorympl = passRepositorympl;
         this.passRepository = passRepository;
     }
-
+//상세정보
     @Override
     public PassDetailDTO fetchPassDetail(Integer passId) {
         return passRepositorympl.findById(passId);
     }
 
+    //북마크
     @Override
     public List<PassSearchResultDTO> fetchBookmarkResults(List<Integer> passIds) {
         return passIds.stream()
@@ -51,6 +52,8 @@ public class PassServicempl implements PassService {
                 .collect(Collectors.toList());
     }
 
+
+    //검색
     //검색
     public List<PassSearchResultDTO> searchPasses(SearchParameters searchParams) {
         return passRepository.findBySearchQuery(
@@ -70,6 +73,7 @@ public class PassServicempl implements PassService {
     private String prepareLikePattern(String input) {
         return input != null ? "%" + input + "%" : null;
     }
+
 
 
     private SlideShowPassDTO convertToSlideShowPassDTO(PassInformation data) {
