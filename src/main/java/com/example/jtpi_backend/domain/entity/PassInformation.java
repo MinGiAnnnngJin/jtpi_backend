@@ -18,9 +18,8 @@ public class PassInformation {
     @Column(length = 20, nullable = false)
     private String title;
 
-
     @Column(nullable = false)
-    private Integer price;
+    private String price;
 
     @Column(nullable = false)
     private Integer period;
@@ -39,13 +38,6 @@ public class PassInformation {
 
     @Column(length = 100, nullable = false)
     private String imageURL;
-
-    @Column(nullable = false)
-    private Integer quantityChildren = 0;
-
-    @Column(nullable = false)
-    private Integer quantityAdults = 0;
-
     private String benefitInformation;
     private String reservationInformation;
     private String refundInformation;
@@ -75,11 +67,11 @@ public class PassInformation {
         this.title = title;
     }
 
-    public Integer getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
@@ -129,21 +121,6 @@ public class PassInformation {
 
     public void setImageURL(String imageURL) {
         this.imageURL = imageURL;
-    }
-    public Integer getQuantityChildren() {
-        return quantityChildren;
-    }
-
-    public void setQuantityChildren(Integer quantityChildren) {
-        this.quantityChildren = quantityChildren;
-    }
-
-    public Integer getQuantityAdults() {
-        return quantityAdults;
-    }
-
-    public void setQuantityAdults(Integer quantityAdults) {
-        this.quantityAdults = quantityAdults;
     }
 
     public String getBenefitInformation() {

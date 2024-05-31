@@ -6,34 +6,35 @@ import com.example.jtpi_backend.domain.dto.PassSearchResultDTO;
 import com.example.jtpi_backend.domain.dto.SlideShowPassDTO;
 import com.example.jtpi_backend.domain.entity.PassInformation;
 import com.example.jtpi_backend.repository.PassRepository;
-import com.example.jtpi_backend.repository.PassRepositorympl;
+import com.example.jtpi_backend.repository.PassRepositoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class PassServicempl implements PassService {
-    private final PassRepositorympl passRepositorympl;
+public class PassServiceImpl implements PassService {
+ /*   private final PassRepositoryImpl passRepositoryImpl;*/
     private final PassRepository passRepository;
 
     @Autowired
-    public PassServicempl(PassRepositorympl passRepositorympl, PassRepository passRepository) {
-        this.passRepositorympl = passRepositorympl;
+    public PassServiceImpl(@Lazy PassRepository passRepository) {
+    /*    this.passRepositoryImpl = passRepositoryImpl;*/
         this.passRepository = passRepository;
     }
-//상세정보
+    //상세정보
     @Override
     public PassDetailDTO fetchPassDetail(Integer passId) {
-        return passRepositorympl.findById(passId);
+        return passRepository.findPassDetailById(passId);
     }
 
     //북마크
     @Override
     public List<PassSearchResultDTO> fetchBookmarkResults(List<Integer> passIds) {
         return passIds.stream()
-                .map(passRepositorympl::findBookmarkResultById)
+                .map(passRepository::findBookmarkResultById)
                 .collect(Collectors.toList());
     }
 
@@ -51,30 +52,21 @@ public class PassServicempl implements PassService {
                 .limit(4)
                 .collect(Collectors.toList());
     }
-
-
-    //검색
     //검색
     public List<PassSearchResultDTO> searchPasses(SearchParameters searchParams) {
-        return passRepository.findBySearchQuery(
-                        prepareLikePattern(searchParams.getQuery()),
-                        prepareLikePattern(searchParams.getDepartureCity()),
-                        prepareLikePattern(searchParams.getArrivalCity()),
+        return passRepository.searchPassesByCriteria(
+                        searchParams.getsearchQuery(),
+                        searchParams.getDepartureCity(),
+                        searchParams.getArrivalCity(),
                         searchParams.getTransportType(),
-                        prepareLikePattern(searchParams.getCityNames()),
+                        searchParams.getCityNames(),
                         searchParams.getDuration(),
-                        searchParams.getQuantityAdults(),
-                        searchParams.getQuantityChildren()
+                        searchParams.getMinPrice(),
+                        searchParams.getMaxPrice()
                 ).stream()
                 .map(this::convertToPassSearchResultDTO)
                 .collect(Collectors.toList());
     }
-
-    private String prepareLikePattern(String input) {
-        return input != null ? "%" + input + "%" : null;
-    }
-
-
 
     private SlideShowPassDTO convertToSlideShowPassDTO(PassInformation data) {
         SlideShowPassDTO dto = new SlideShowPassDTO();

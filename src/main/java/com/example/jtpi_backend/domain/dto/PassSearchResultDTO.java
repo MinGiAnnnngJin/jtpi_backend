@@ -5,10 +5,10 @@ public class PassSearchResultDTO {
     private String imageUrl;
     private String title;
     private String cityNames;
-    private Integer price;
+    private String price;
 
     public PassSearchResultDTO(){}
-    public PassSearchResultDTO(Integer passID, String title, String imageUrl, String cityNames, Integer price){
+    public PassSearchResultDTO(Integer passID, String title, String imageUrl, String cityNames, String price){
         this.passID = passID;
         this.imageUrl = imageUrl;
         this.title = title;
@@ -39,11 +39,11 @@ public class PassSearchResultDTO {
         this.title = title;
     }
 
-    public Integer getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 

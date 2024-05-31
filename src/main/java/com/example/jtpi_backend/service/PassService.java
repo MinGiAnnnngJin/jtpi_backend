@@ -8,7 +8,10 @@ import com.example.jtpi_backend.domain.dto.SlideShowPassDTO;
 import java.util.List;
 
 public interface PassService {
+
+    //상세정보
     PassDetailDTO fetchPassDetail(Integer passId);
+    //북마크
     List<PassSearchResultDTO> fetchBookmarkResults(List<Integer> passIds);
 
     // 추천

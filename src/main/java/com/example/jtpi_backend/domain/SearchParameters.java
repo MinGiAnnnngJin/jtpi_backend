@@ -1,36 +1,22 @@
 package com.example.jtpi_backend.domain;
+
 public class SearchParameters {
-    private String query;
+    private String searchQuery;
     private String departureCity;
     private String arrivalCity;
     private String transportType;
     private String cityNames;
     private Integer duration;
-    private Integer quantityAdults;
-    private Integer quantityChildren;
+    private Integer minPrice;
+    private Integer maxPrice;
 
-    public String getQuery() {
-        return query;
+    public String getsearchQuery() {
+
+        return searchQuery;
     }
 
-    public void setQuery(String query) {
-        this.query = query;
-    }
-
-    public String getDepartureCity() {
-        return departureCity;
-    }
-
-    public void setDepartureCity(String departureCity) {
-        this.departureCity = departureCity;
-    }
-
-    public String getArrivalCity() {
-        return arrivalCity;
-    }
-
-    public void setArrivalCity(String arrivalCity) {
-        this.arrivalCity = arrivalCity;
+    public void setsearchQuery(String searchQuery) {
+        this.searchQuery = searchQuery;
     }
 
     public String getTransportType() {
@@ -57,20 +43,36 @@ public class SearchParameters {
         this.duration = duration;
     }
 
-    public Integer getQuantityAdults() {
-        return quantityAdults;
+    public String getArrivalCity() {
+        return arrivalCity;
     }
 
-    public void setQuantityAdults(Integer quantityAdults) {
-        this.quantityAdults = quantityAdults;
+    public void setArrivalCity(String arrivalCity) {
+        this.arrivalCity = arrivalCity;
     }
 
-    public Integer getQuantityChildren() {
-        return quantityChildren;
+    public String getDepartureCity() {
+        return departureCity;
     }
 
-    public void setQuantityChildren(Integer quantityChildren) {
-        this.quantityChildren = quantityChildren;
+    public void setDepartureCity(String departureCity) {
+        this.departureCity = departureCity;
+    }
+
+    public Integer getMinPrice() {
+        return minPrice;
+    }
+
+    public void setMinPrice(Integer minPrice) {
+        this.minPrice = minPrice;
+    }
+
+    public Integer getMaxPrice() {
+        return maxPrice;
+    }
+
+    public void setMaxPrice(Integer maxPrice) {
+        this.maxPrice = maxPrice;
     }
 
     // Getters and Setters

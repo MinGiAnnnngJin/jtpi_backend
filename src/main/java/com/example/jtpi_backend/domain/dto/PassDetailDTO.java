@@ -6,14 +6,14 @@ public class PassDetailDTO {
     private String transportType;
     private String title;
     private String cityNames;
-    private Integer price;
+    private String price;
     private Integer period;
     private String productDescription;
     private String benefit_information;
     private String reservation_information;
     private String refund_information;
 
-    public PassDetailDTO(Integer passId, String imageUrl, String transportType, String title, String cityNames, Integer price, Integer period,String productDescription, String benefit_information, String reservation_information, String refund_information ) {
+    public PassDetailDTO(Integer passId, String imageUrl, String transportType, String title, String cityNames, String price, Integer period,String productDescription, String benefit_information, String reservation_information, String refund_information ) {
         this.passId = passId;
         this.imageUrl = imageUrl;
         this.transportType = transportType;
@@ -63,10 +63,10 @@ public class PassDetailDTO {
         this.cityNames = cityNames;
     }
 
-    public Integer getPrice() {
+    public String getPrice() {
         return price;
     }
-    public void setPrice(Integer price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
