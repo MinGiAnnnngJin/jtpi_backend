@@ -10,6 +10,20 @@ public class SearchParameters {
     private Integer minPrice;
     private Integer maxPrice;
 
+
+    @Override
+    public String toString() {
+        return "SearchParameters{" +
+                "searchQuery='" + searchQuery + '\'' +
+                ", departureCity='" + departureCity + '\'' +
+                ", arrivalCity='" + arrivalCity + '\'' +
+                ", transportType='" + transportType + '\'' +
+                ", cityNames='" + cityNames + '\'' +
+                ", duration='" + duration + '\'' +
+                ", minPrice='" + minPrice + '\'' +
+                ", maxPrice='" + maxPrice + '\'' +
+                '}';
+    }
     public String getsearchQuery() {
 
         return searchQuery;

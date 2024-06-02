@@ -54,16 +54,18 @@ public class PassServiceImpl implements PassService {
     }
     //검색
     public List<PassSearchResultDTO> searchPasses(SearchParameters searchParams) {
-        return passRepository.searchPassesByCriteria(
-                        searchParams.getsearchQuery(),
-                        searchParams.getDepartureCity(),
-                        searchParams.getArrivalCity(),
-                        searchParams.getTransportType(),
-                        searchParams.getCityNames(),
-                        searchParams.getDuration(),
-                        searchParams.getMinPrice(),
-                        searchParams.getMaxPrice()
-                ).stream()
+        List<PassInformation> passInformationList = passRepository.searchPassesByCriteria(
+                searchParams.getsearchQuery(),
+                searchParams.getDepartureCity(),
+                searchParams.getArrivalCity(),
+                searchParams.getTransportType(),
+                searchParams.getCityNames(),
+                searchParams.getDuration(),
+                searchParams.getMinPrice(),
+                searchParams.getMaxPrice()
+        );
+
+        return passInformationList.stream()
                 .map(this::convertToPassSearchResultDTO)
                 .collect(Collectors.toList());
     }

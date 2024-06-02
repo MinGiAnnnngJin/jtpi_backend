@@ -1,5 +1,7 @@
 package com.example.jtpi_backend.domain.dto;
 
+import javax.swing.*;
+
 public class PassSearchResultDTO {
     private Integer passID;
     private String imageUrl;
@@ -14,6 +16,17 @@ public class PassSearchResultDTO {
         this.title = title;
         this.cityNames = cityNames;
         this.price = price;
+    }
+    @Override
+    public String toString() {
+        return "PassSearchResultDTO{" +
+                "id=" + passID +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", title='" + title + '\'' +
+                ", citynames='" + cityNames + '\'' +
+                ", price='" + price + '\'' +
+
+                '}';
     }
     public Integer getpassID() {
         return passID;

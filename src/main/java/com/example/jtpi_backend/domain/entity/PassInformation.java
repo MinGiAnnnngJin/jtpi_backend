@@ -42,6 +42,7 @@ public class PassInformation {
     private String reservationInformation;
     private String refundInformation;
     private String productDescription;
+    private String stationNames;
 
     public Integer getpassID() {
         return passID;
@@ -153,5 +154,13 @@ public class PassInformation {
 
     public String getProductDescription() {
         return productDescription;
+    }
+
+    public String getStationNames() {
+        return stationNames;
+    }
+
+    public void setStationNames(String stationNames) {
+        this.stationNames = stationNames;
     }
 }

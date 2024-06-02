@@ -46,7 +46,8 @@ public class PassRepositoryImpl implements PassRepositoryCustom{
         Query query = entityManager.createNativeQuery(sql, PassInformation.class);
         return query.getResultList();
     }
-    //검색
+
+   //검색
     @Override
     public List<PassInformation> searchPassesByCriteria(
             String searchQuery,
@@ -58,6 +59,7 @@ public class PassRepositoryImpl implements PassRepositoryCustom{
             Integer minPrice,
             Integer maxPrice
     ) {
+        // Use CriteriaBuilder for the non-price related queries
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<PassInformation> cq = cb.createQuery(PassInformation.class);
         Root<PassInformation> pass = cq.from(PassInformation.class);
@@ -65,28 +67,29 @@ public class PassRepositoryImpl implements PassRepositoryCustom{
         List<Predicate> predicates = new ArrayList<>();
 
         // Convert '0' to null for all search parameters
-        if (searchQuery != null && searchQuery.equals("0")) {
+        // Convert '0' to null for all search parameters
+        if ("0".equals(searchQuery)) {
             searchQuery = null;
         }
-        if (departureCity != null && departureCity.equals("0")) {
+        if ("0".equals(departureCity)) {
             departureCity = null;
         }
-        if (arrivalCity != null && arrivalCity.equals("0")) {
+        if ("0".equals(arrivalCity)) {
             arrivalCity = null;
         }
-        if (transportType != null && transportType.equals("0")) {
+        if ("0".equals(transportType)) {
             transportType = null;
         }
-        if (cityNames != null && cityNames.equals("0")) {
+        if ("0".equals(cityNames)) {
             cityNames = null;
         }
-        if (duration != null && duration.equals(0)) {
+        if (duration != null && duration == 0) {
             duration = null;
         }
-        if (minPrice != null && minPrice.equals(0)) {
+        if (minPrice != null && minPrice == 0) {
             minPrice = null;
         }
-        if (maxPrice != null && maxPrice.equals(0)) {
+        if (maxPrice != null && maxPrice == 0) {
             maxPrice = null;
         }
 
@@ -140,26 +143,32 @@ public class PassRepositoryImpl implements PassRepositoryCustom{
             }
         }
 
-        // Add price range filter if both minPrice and maxPrice are provided
-        if (minPrice != null && maxPrice != null) {
-            // Create a subquery to handle the price filtering
-            Subquery<Integer> subquery = cq.subquery(Integer.class);
-            Root<PassInformation> subRoot = subquery.from(PassInformation.class);
-            Expression<Integer> priceExpression = cb.function("CAST", Integer.class, cb.function("UNNEST", String.class, subRoot.get("price")));
-            subquery.select(subRoot.get("id")).where(
-                    cb.and(
-                            cb.equal(subRoot.get("id"), pass.get("id")),
-                            cb.between(priceExpression, minPrice, maxPrice)
-                    )
-            );
-            predicates.add(cb.exists(subquery));
-        }
-
         // Combine all predicates with AND
         cq.where(cb.and(predicates.toArray(new Predicate[0])));
 
-        TypedQuery<PassInformation> query = entityManager.createQuery(cq);
-        List<PassInformation> results = query.getResultList();
+        // Execute the query for non-price filters
+        List<PassInformation> results = entityManager.createQuery(cq).getResultList();
+
+        // Filter results by price range using a native query
+        if (minPrice != null && maxPrice != null) {
+            String sql = "SELECT * FROM PassInformation " +
+                    "WHERE EXISTS (" +
+                    "    SELECT 1 " +
+                    "    FROM (" +
+                    "        SELECT CAST(SUBSTRING_INDEX(SUBSTRING_INDEX(price, ',', numbers.n), ',', -1) AS UNSIGNED) AS individual_price " +
+                    "        FROM (SELECT 1 n UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5) numbers " +
+                    "        WHERE LENGTH(price) - LENGTH(REPLACE(price, ',', '')) >= numbers.n - 1" +
+                    "    ) temp " +
+                    "    WHERE individual_price BETWEEN ?1 AND ?2" +
+                    ")";
+            Query nativeQuery = entityManager.createNativeQuery(sql, PassInformation.class);
+            nativeQuery.setParameter(1, minPrice);
+            nativeQuery.setParameter(2, maxPrice);
+
+
+            List<PassInformation> priceFilteredResults = nativeQuery.getResultList();
+            results.retainAll(priceFilteredResults);
+        }
 
         // Log query results
         System.out.println("Query Results: " + results);
