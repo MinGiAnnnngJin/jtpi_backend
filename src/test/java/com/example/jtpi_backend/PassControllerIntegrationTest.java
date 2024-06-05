@@ -98,7 +98,7 @@ public class PassControllerIntegrationTest {
 public void testSearchPasses() throws Exception {
     // 검색 파라미터 설정
     SearchParameters searchParams = new SearchParameters();
-    searchParams.setsearchQuery("이와테");
+    searchParams.setsearchQuery("구마가야역");
     searchParams.setDepartureCity("0");
     searchParams.setArrivalCity("0");
     searchParams.setTransportType("0");

@@ -58,6 +58,7 @@ public class PassRepositoryImpl implements PassRepositoryCustom{
             Integer duration,
             Integer minPrice,
             Integer maxPrice
+
     ) {
         // Use CriteriaBuilder for the non-price related queries
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
@@ -95,9 +96,12 @@ public class PassRepositoryImpl implements PassRepositoryCustom{
 
         // Search query in title or cityNames
         if (searchQuery != null && !searchQuery.isEmpty()) {
+            String normalizedSearchQuery = searchQuery.replace("역", "").replace(" ", "");
+
             Predicate searchPredicate = cb.or(
-                    cb.like(pass.get("title"), "%" + searchQuery + "%"),
-                    cb.like(pass.get("cityNames"), "%" + searchQuery + "%")
+                    cb.like(cb.function("REPLACE", String.class, pass.get("title"), cb.literal(" "), cb.literal("")), "%" + normalizedSearchQuery + "%"),
+                    cb.like(cb.function("REPLACE", String.class, pass.get("cityNames"), cb.literal(" "), cb.literal("")), "%" + normalizedSearchQuery + "%"),
+                    cb.like(cb.function("REPLACE", String.class, pass.get("stationNames"), cb.literal(" "), cb.literal("")), "%" + normalizedSearchQuery + "%")
             );
             predicates.add(searchPredicate);
         }
