@@ -108,10 +108,12 @@ public class PassRepositoryImpl implements PassRepositoryCustom{
 
         // Add departureCity and arrivalCity conditions
         if (departureCity != null && !departureCity.isEmpty()) {
-            predicates.add(cb.like(pass.get("stationNames"), "%" + departureCity + "%"));
+            String normalizedSearchQuery = departureCity.replace("역", "").replace(" ", "");
+            predicates.add( cb.like(cb.function("REPLACE", String.class, pass.get("stationNames"), cb.literal(" "), cb.literal("")), "%" + normalizedSearchQuery + "%"));
         }
         if (arrivalCity != null && !arrivalCity.isEmpty()) {
-            predicates.add(cb.like(pass.get("stationNames"), "%" + arrivalCity + "%"));
+            String normalizedSearchQuery = arrivalCity.replace("역", "").replace(" ", "");
+            predicates.add( cb.like(cb.function("REPLACE", String.class, pass.get("stationNames"), cb.literal(" "), cb.literal("")), "%" + normalizedSearchQuery + "%"));
         }
 
         // Add other cityNames conditions
