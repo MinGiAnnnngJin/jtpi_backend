@@ -43,6 +43,8 @@ public class PassInformation {
     private String refundInformation;
     private String productDescription;
     private String stationNames;
+    private String Map_Url;
+    private String break_even_usage;
 
     public Integer getpassID() {
         return passID;
@@ -162,5 +164,21 @@ public class PassInformation {
 
     public void setStationNames(String stationNames) {
         this.stationNames = stationNames;
+    }
+
+    public String getMap_Url() {
+        return Map_Url;
+    }
+
+    public void setMap_Url(String map_Url) {
+        Map_Url = map_Url;
+    }
+
+    public String getBreak_even_usage() {
+        return break_even_usage;
+    }
+
+    public void setBreak_even_usage(String break_even_usage) {
+        this.break_even_usage = break_even_usage;
     }
 }
