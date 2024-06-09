@@ -59,7 +59,7 @@ public class PassServiceImpl implements PassService {
                 searchParams.getDepartureCity(),
                 searchParams.getArrivalCity(),
                 searchParams.getTransportType(),
-                searchParams.getCityNames(),
+                searchParams.getRouteInformation(),
                 searchParams.getDuration(),
                 searchParams.getMinPrice(),
                 searchParams.getMaxPrice()

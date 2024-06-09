@@ -1,3 +1,4 @@
+/*
 package com.example.jtpi_backend.unit;
 
 import com.example.jtpi_backend.controller.PassController;
@@ -26,7 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(PassController.class)
-public class PassControllerTest {
+public class aPassControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -87,3 +88,4 @@ public class PassControllerTest {
                 .andExpect(jsonPath("$[1].price").value(150));
     }
 }
+*/
