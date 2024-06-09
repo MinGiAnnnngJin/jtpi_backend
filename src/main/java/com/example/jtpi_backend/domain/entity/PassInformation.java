@@ -28,7 +28,7 @@ public class PassInformation {
     private String transportType;
 
     @Column(length = 50, nullable = false)
-    private String cityNames;
+    private String routeInformation;
 
     @Column(name = "create_at", nullable = false)
     private LocalDateTime createAt;
@@ -92,12 +92,12 @@ public class PassInformation {
         this.transportType = transportType;
     }
 
-    public String getCityNames() {
-        return cityNames;
+    public String getRouteInformation() {
+        return routeInformation;
     }
 
-    public void setCityNames(String cityNames) {
-        this.cityNames = cityNames;
+    public void setRouteInformation(String routeInformation) {
+        this.routeInformation = routeInformation;
     }
 
     public LocalDateTime getCreateAt() {

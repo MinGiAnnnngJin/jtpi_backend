@@ -7,6 +7,7 @@ import com.example.jtpi_backend.domain.entity.PassInformation;
 import java.util.List;
 
 public interface PassRepositoryCustom {
+
     List<PassInformation> searchPassesByCriteria(
             String searchquery,
             String departureCity,

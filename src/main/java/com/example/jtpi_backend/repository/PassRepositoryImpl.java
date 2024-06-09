@@ -54,7 +54,7 @@ public class PassRepositoryImpl implements PassRepositoryCustom{
             String departureCity,
             String arrivalCity,
             String transportType,
-            String cityNames,
+            String routeInformation,
             Integer duration,
             Integer minPrice,
             Integer maxPrice
@@ -81,8 +81,8 @@ public class PassRepositoryImpl implements PassRepositoryCustom{
         if ("0".equals(transportType)) {
             transportType = null;
         }
-        if ("0".equals(cityNames)) {
-            cityNames = null;
+        if ("0".equals(routeInformation)) {
+            routeInformation = null;
         }
         if (duration != null && duration == 0) {
             duration = null;
@@ -100,7 +100,7 @@ public class PassRepositoryImpl implements PassRepositoryCustom{
 
             Predicate searchPredicate = cb.or(
                     cb.like(cb.function("REPLACE", String.class, pass.get("title"), cb.literal(" "), cb.literal("")), "%" + normalizedSearchQuery + "%"),
-                    cb.like(cb.function("REPLACE", String.class, pass.get("cityNames"), cb.literal(" "), cb.literal("")), "%" + normalizedSearchQuery + "%"),
+                    cb.like(cb.function("REPLACE", String.class, pass.get("routeInformation"), cb.literal(" "), cb.literal("")), "%" + normalizedSearchQuery + "%"),
                     cb.like(cb.function("REPLACE", String.class, pass.get("stationNames"), cb.literal(" "), cb.literal("")), "%" + normalizedSearchQuery + "%")
             );
             predicates.add(searchPredicate);
@@ -117,8 +117,8 @@ public class PassRepositoryImpl implements PassRepositoryCustom{
         }
 
         // Add other cityNames conditions
-        if (cityNames != null && !cityNames.isEmpty()) {
-            predicates.add(cb.like(pass.get("cityNames"), "%" + cityNames + "%"));
+        if (routeInformation != null && !routeInformation.isEmpty()) {
+            predicates.add(cb.like(pass.get("routeInformation"), "%" +routeInformation + "%"));
         }
 
         // Other predicates for transportType
@@ -191,7 +191,7 @@ public class PassRepositoryImpl implements PassRepositoryCustom{
         }
         return null;
     }*/
-
+//상세정보
     @Override
     public PassDetailDTO findPassDetailById(Integer passId) {
         Optional<PassInformation> passInformationOpt = Optional.ofNullable(entityManager.find(PassInformation.class, passId));
@@ -233,7 +233,7 @@ public class PassRepositoryImpl implements PassRepositoryCustom{
         dto.setpassID(passInformation.getpassID());
         dto.setImageUrl(passInformation.getImageURL());
         dto.setTitle(passInformation.getTitle());
-        dto.setCityNames(passInformation.getCityNames());
+        dto.setRouteInformation(passInformation.getRouteInformation());
         dto.setPrice(passInformation.getPrice());
         return dto;
     }

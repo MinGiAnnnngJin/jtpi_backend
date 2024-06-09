@@ -59,7 +59,7 @@ public class PassServiceImpl implements PassService {
                 searchParams.getDepartureCity(),
                 searchParams.getArrivalCity(),
                 searchParams.getTransportType(),
-                searchParams.getCityNames(),
+                searchParams.getRouteInformation(),
                 searchParams.getDuration(),
                 searchParams.getMinPrice(),
                 searchParams.getMaxPrice()
@@ -82,7 +82,7 @@ public class PassServiceImpl implements PassService {
         dto.setpassID(data.getpassID());
         dto.setImageUrl(data.getImageURL());
         dto.setTitle(data.getTitle());
-        dto.setCityNames(data.getCityNames());
+        dto.setRouteInformation(data.getRouteInformation());
         dto.setPrice(data.getPrice());
         return dto;
     }

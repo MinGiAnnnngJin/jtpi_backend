@@ -5,7 +5,7 @@ public class SearchParameters {
     private String departureCity;
     private String arrivalCity;
     private String transportType;
-    private String cityNames;
+    private String routeInformation;
     private Integer duration;
     private Integer minPrice;
     private Integer maxPrice;
@@ -18,7 +18,7 @@ public class SearchParameters {
                 ", departureCity='" + departureCity + '\'' +
                 ", arrivalCity='" + arrivalCity + '\'' +
                 ", transportType='" + transportType + '\'' +
-                ", cityNames='" + cityNames + '\'' +
+                ", routeInformation='" + routeInformation + '\'' +
                 ", duration='" + duration + '\'' +
                 ", minPrice='" + minPrice + '\'' +
                 ", maxPrice='" + maxPrice + '\'' +
@@ -41,12 +41,12 @@ public class SearchParameters {
         this.transportType = transportType;
     }
 
-    public String getCityNames() {
-        return cityNames;
+    public String getRouteInformation() {
+        return routeInformation;
     }
 
-    public void setCityNames(String cityNames) {
-        this.cityNames = cityNames;
+    public void setRouteInformation(String routeInformation) {
+        this.routeInformation = routeInformation;
     }
 
     public Integer getDuration() {
