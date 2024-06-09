@@ -101,6 +101,7 @@ public class PassRepositoryImpl implements PassRepositoryCustom{
             Predicate searchPredicate = cb.or(
                     cb.like(cb.function("REPLACE", String.class, pass.get("title"), cb.literal(" "), cb.literal("")), "%" + normalizedSearchQuery + "%"),
                     cb.like(cb.function("REPLACE", String.class, pass.get("cityNames"), cb.literal(" "), cb.literal("")), "%" + normalizedSearchQuery + "%"),
+                    cb.like(cb.function("REPLACE", String.class, pass.get("routeInformation"), cb.literal(" "), cb.literal("")), "%" + normalizedSearchQuery + "%"),
                     cb.like(cb.function("REPLACE", String.class, pass.get("stationNames"), cb.literal(" "), cb.literal("")), "%" + normalizedSearchQuery + "%")
             );
             predicates.add(searchPredicate);
@@ -125,6 +126,7 @@ public class PassRepositoryImpl implements PassRepositoryCustom{
         if (transportType != null && !transportType.isEmpty()) {
             if (transportType.equals("1")) {  // 전철, 버스 혼합
                 predicates.add(cb.equal(pass.get("transportType"), "전철, 버스"));
+
             } else if (transportType.equals("2")) {  // 전철 + 전철, 버스
                 predicates.add(cb.or(
                         cb.equal(pass.get("transportType"), "전철"),
@@ -217,10 +219,13 @@ public class PassRepositoryImpl implements PassRepositoryCustom{
                 passInformation.getImageURL(),
                 passInformation.getTransportType(),
                 passInformation.getTitle(),
-                passInformation.getCityNames(),
+                passInformation.getRouteInformation(),
                 passInformation.getPrice(),
                 passInformation.getPeriod(),
                 passInformation.getProductDescription(),
+                passInformation.getMap_Url(),
+                passInformation.getStationNames(),
+                passInformation.getBreak_enev_usage(),
                 passInformation.getBenefitInformation(),
                 passInformation.getReservationInformation(),
                 passInformation.getRefundInformation()
@@ -233,7 +238,7 @@ public class PassRepositoryImpl implements PassRepositoryCustom{
         dto.setpassID(passInformation.getpassID());
         dto.setImageUrl(passInformation.getImageURL());
         dto.setTitle(passInformation.getTitle());
-        dto.setCityNames(passInformation.getCityNames());
+        dto.setRouteInformation(passInformation.getRouteInformation());
         dto.setPrice(passInformation.getPrice());
         return dto;
     }

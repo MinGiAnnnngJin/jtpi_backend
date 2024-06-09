@@ -6,15 +6,15 @@ public class PassSearchResultDTO {
     private Integer passID;
     private String imageUrl;
     private String title;
-    private String cityNames;
+    private String routeInformation;
     private String price;
 
     public PassSearchResultDTO(){}
-    public PassSearchResultDTO(Integer passID, String title, String imageUrl, String cityNames, String price){
+    public PassSearchResultDTO(Integer passID, String title, String imageUrl, String  routeInformation, String price){
         this.passID = passID;
         this.imageUrl = imageUrl;
         this.title = title;
-        this.cityNames = cityNames;
+        this.routeInformation =  routeInformation;
         this.price = price;
     }
     @Override
@@ -23,7 +23,7 @@ public class PassSearchResultDTO {
                 "id=" + passID +
                 ", imageUrl='" + imageUrl + '\'' +
                 ", title='" + title + '\'' +
-                ", citynames='" + cityNames + '\'' +
+                ", routeInformation='" +  routeInformation + '\'' +
                 ", price='" + price + '\'' +
 
                 '}';
@@ -60,12 +60,12 @@ public class PassSearchResultDTO {
         this.price = price;
     }
 
-    public String getCityNames() {
-        return cityNames;
+    public String  getRouteInformation() {
+        return  routeInformation;
     }
 
-    public void setCityNames(String cityNames) {
-        this.cityNames = cityNames;
+    public void  setRouteInformation(String  routeInformation) {
+        this. routeInformation =  routeInformation;
     }
 }
 

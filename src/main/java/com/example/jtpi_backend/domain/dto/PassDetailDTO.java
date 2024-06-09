@@ -5,23 +5,29 @@ public class PassDetailDTO {
     private String imageUrl;
     private String transportType;
     private String title;
-    private String cityNames;
+    private String routeInformation;
     private String price;
     private Integer period;
     private String productDescription;
+    private String Map_Url;
+    private String stationNames;
+    private String break_even_usage;
     private String benefit_information;
     private String reservation_information;
     private String refund_information;
 
-    public PassDetailDTO(Integer passId, String imageUrl, String transportType, String title, String cityNames, String price, Integer period,String productDescription, String benefit_information, String reservation_information, String refund_information ) {
+    public PassDetailDTO(Integer passId, String imageUrl, String transportType, String title, String routeInformation, String price, Integer period,String productDescription, String Map_Url, String stationNames, String  break_even_usage, String benefit_information, String reservation_information, String refund_information ) {
         this.passId = passId;
         this.imageUrl = imageUrl;
         this.transportType = transportType;
         this.title = title;
-        this.cityNames = cityNames;
+        this.routeInformation = routeInformation;
         this.price = price;
         this.period = period;
         this.productDescription=productDescription;
+        this.Map_Url=Map_Url;
+        this.stationNames=stationNames;
+        this.break_even_usage=break_even_usage;
         this.benefit_information = benefit_information;
         this.reservation_information = reservation_information;
         this.refund_information = refund_information;
@@ -56,11 +62,11 @@ public class PassDetailDTO {
         this.title = title;
     }
 
-    public String getCityNames() {
-        return cityNames;
+    public String getRouteInformation() {
+        return routeInformation;
     }
-    public void setCityNames(String cityNames) {
-        this.cityNames = cityNames;
+    public void setRouteInformation(String routeInformation) {
+        this.routeInformation = routeInformation;
     }
 
     public String getPrice() {
@@ -101,6 +107,27 @@ public class PassDetailDTO {
         this.refund_information = refund_information;
     }
 
+    public String getMap_Url() {
+        return Map_Url;
+    }
+
+    public void setMap_Url(String map_Url) {
+        Map_Url = map_Url;
+    }
+    public String getStationNames() {
+        return stationNames;
+    }
+
+    public void setStationNames(String stationNames) {
+        this.stationNames = stationNames;
+    }
+    public String getBreak_even_usage() {
+        return break_even_usage;
+    }
+
+    public void setBreak_even_usage(String break_even_usage) {
+        this.break_even_usage = break_even_usage;
+    }
     @Override
     public String toString() {
         return "PassDetailDTO{" +
@@ -108,14 +135,20 @@ public class PassDetailDTO {
                 ", imageUrl='" + imageUrl + '\'' +
                 ", transportType='" + transportType + '\'' +
                 ", title='" + title + '\'' +
-                ", cityNames='" + cityNames + '\'' +
+                ", routeInformation='" + routeInformation + '\'' +
                 ", price=" + price + '\'' +
                 ", period=" + period + '\'' +
                 ", productDescription='" + productDescription + '\'' +
+                ", Map_Url='" + Map_Url + '\'' +
+                ", stationNames='" + stationNames + '\'' +
+                ", break_even_usage='" + break_even_usage + '\'' +
                 ", benefit_information='" + benefit_information + '\'' +
                 ", reservation_information='" + reservation_information + '\'' +
                 ", refund_information='" + refund_information + '\'' +
                 '}';
     }
+
+
+
 }
 

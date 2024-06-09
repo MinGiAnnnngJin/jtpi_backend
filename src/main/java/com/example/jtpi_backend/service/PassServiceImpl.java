@@ -82,7 +82,7 @@ public class PassServiceImpl implements PassService {
         dto.setpassID(data.getpassID());
         dto.setImageUrl(data.getImageURL());
         dto.setTitle(data.getTitle());
-        dto.setCityNames(data.getCityNames());
+        dto.setRouteInformation(data.getRouteInformation());
         dto.setPrice(data.getPrice());
         return dto;
     }

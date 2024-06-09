@@ -135,9 +135,6 @@ public void testSearchPasses() throws Exception {
 }
 
 
-
-
-// 다시 테스트 해봐 데이터 바꿔숴ㅓ
 @Test
 public void testGetPassDetail() throws Exception {
     // 테스트 데이터베이스에 이미 존재하는 Pass ID를 사용
