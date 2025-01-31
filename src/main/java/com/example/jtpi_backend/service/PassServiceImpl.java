@@ -29,7 +29,6 @@ public class PassServiceImpl implements PassService {
     public PassDetailDTO fetchPassDetail(Integer passId) {
         return passRepository.findPassDetailById(passId);
     }
-
     //북마크
     @Override
     public List<PassSearchResultDTO> fetchBookmarkResults(List<Integer> passIds) {
@@ -37,19 +36,16 @@ public class PassServiceImpl implements PassService {
                 .map(passRepository::findBookmarkResultById)
                 .collect(Collectors.toList());
     }
-
-    //신규
-    public List<SlideShowPassDTO> fetchSlideShowRecommendedPasses() {
-        return passRepository.findSlideShowRecommendedPasses().stream()
-                .map(this::convertToSlideShowPassDTO)
-                .limit(4)
-                .collect(Collectors.toList());
-    }
-    //추천
+    // 신규
     public List<SlideShowPassDTO> fetchSlideShowNewPasses() {
         return passRepository.findSlideShowNewPasses().stream()
                 .map(this::convertToSlideShowPassDTO)
-                .limit(4)
+                .collect(Collectors.toList());
+    }
+    // 추천
+    public List<SlideShowPassDTO> fetchSlideShowRecommendedPasses() {
+        return passRepository.findSlideShowRecommendedPasses().stream()
+                .map(this::convertToSlideShowPassDTO)
                 .collect(Collectors.toList());
     }
     //검색
@@ -59,7 +55,7 @@ public class PassServiceImpl implements PassService {
                 searchParams.getDepartureCity(),
                 searchParams.getArrivalCity(),
                 searchParams.getTransportType(),
-                searchParams.getRouteInformation(),
+                searchParams.getCityNames(),
                 searchParams.getDuration(),
                 searchParams.getMinPrice(),
                 searchParams.getMaxPrice()

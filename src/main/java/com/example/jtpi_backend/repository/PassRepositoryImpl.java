@@ -28,7 +28,7 @@ public class PassRepositoryImpl implements PassRepositoryCustom{
     @PersistenceContext
     private EntityManager entityManager;
 
-    //신규
+    //신규 패스 데이터 처리
     @Override
     public List<PassInformation> findSlideShowNewPasses() {
         String sql = "SELECT * FROM PassInformation ORDER BY create_at DESC LIMIT 4";
@@ -36,7 +36,7 @@ public class PassRepositoryImpl implements PassRepositoryCustom{
         return query.getResultList();
     }
 
-    //추천
+    //추천 패스 데이터 처리
     @Override
     public List<PassInformation> findSlideShowRecommendedPasses() {
         String sql = "SELECT pi.* FROM RecommendedPass rp " +
@@ -47,7 +47,7 @@ public class PassRepositoryImpl implements PassRepositoryCustom{
         return query.getResultList();
     }
 
-   //검색
+    //검색
     @Override
     public List<PassInformation> searchPassesByCriteria(
             String searchQuery,
@@ -94,7 +94,7 @@ public class PassRepositoryImpl implements PassRepositoryCustom{
             maxPrice = null;
         }
 
-        // Search query in title or cityNames
+        // 제목이나 도시 이름에서 검색어 찾기
         if (searchQuery != null && !searchQuery.isEmpty()) {
             String normalizedSearchQuery = searchQuery.replace("역", "").replace(" ", "");
 
@@ -107,7 +107,7 @@ public class PassRepositoryImpl implements PassRepositoryCustom{
             predicates.add(searchPredicate);
         }
 
-        // Add departureCity and arrivalCity conditions
+        // 출발 도시와 도착 도시에 대한 조건 추가
         if (departureCity != null && !departureCity.isEmpty()) {
             String normalizedSearchQuery = departureCity.replace("역", "").replace(" ", "");
             predicates.add( cb.like(cb.function("REPLACE", String.class, pass.get("stationNames"), cb.literal(" "), cb.literal("")), "%" + normalizedSearchQuery + "%"));
@@ -119,8 +119,13 @@ public class PassRepositoryImpl implements PassRepositoryCustom{
 
         // Add other cityNames conditions
         if (cityNames != null && !cityNames.isEmpty()) {
-            predicates.add(cb.like(pass.get("cityNames"), "%" + cityNames + "%"));
+            String[] cities = cityNames.split(",\\s*"); // 도시 이름을 쉼표와 공백으로 분리
+            for (String city : cities) {
+                predicates.add(cb.like(pass.get("cityNames"), "%" + city.trim() + "%"));
+            }
         }
+
+
 
         // Other predicates for transportType
         if (transportType != null && !transportType.isEmpty()) {
@@ -146,7 +151,7 @@ public class PassRepositoryImpl implements PassRepositoryCustom{
                 predicates.add(cb.equal(pass.get("period"), 1));
             } else if (duration == 2) {
                 predicates.add(cb.equal(pass.get("period"), 2));
-            } else if (duration >= 3) {
+            } else if (duration == 3) {
                 predicates.add(cb.greaterThanOrEqualTo(pass.get("period"), 3));
             }
         }
@@ -160,23 +165,16 @@ public class PassRepositoryImpl implements PassRepositoryCustom{
         // Filter results by price range using a native query
         if (minPrice != null && maxPrice != null) {
             String sql = "SELECT * FROM PassInformation " +
-                    "WHERE EXISTS (" +
-                    "    SELECT 1 " +
-                    "    FROM (" +
-                    "        SELECT CAST(SUBSTRING_INDEX(SUBSTRING_INDEX(price, ',', numbers.n), ',', -1) AS UNSIGNED) AS individual_price " +
-                    "        FROM (SELECT 1 n UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5) numbers " +
-                    "        WHERE LENGTH(price) - LENGTH(REPLACE(price, ',', '')) >= numbers.n - 1" +
-                    "    ) temp " +
-                    "    WHERE individual_price BETWEEN ?1 AND ?2" +
-                    ")";
+                    "WHERE CAST(SUBSTRING_INDEX(price, ',', 1) AS UNSIGNED) BETWEEN ?1 AND ?2";
             Query nativeQuery = entityManager.createNativeQuery(sql, PassInformation.class);
             nativeQuery.setParameter(1, minPrice);
             nativeQuery.setParameter(2, maxPrice);
 
-
             List<PassInformation> priceFilteredResults = nativeQuery.getResultList();
             results.retainAll(priceFilteredResults);
         }
+
+
 
         // Log query results
         System.out.println("Query Results: " + results);
@@ -216,22 +214,22 @@ public class PassRepositoryImpl implements PassRepositoryCustom{
     private PassDetailDTO convertToPassDetailDTO(PassInformation passInformation) {
         return new PassDetailDTO(
                 passInformation.getpassID(),
-                passInformation.getImageURL(),
-                passInformation.getTransportType(),
-                passInformation.getTitle(),
-                passInformation.getRouteInformation(),
-                passInformation.getPrice(),
+                passInformation.getImageURL() != null ? passInformation.getImageURL() : "",
+                passInformation.getTransportType() != null ? passInformation.getTransportType() : "",
+                passInformation.getTitle() != null ? passInformation.getTitle() : "",
+                passInformation.getRouteInformation() != null ? passInformation.getRouteInformation() : "",
+                passInformation.getPrice() != null ? passInformation.getPrice() : "",
                 passInformation.getPeriod(),
-                passInformation.getProductDescription(),
-                passInformation.getMap_Url(),
-                passInformation.getStationNames(),
-                passInformation.getBreak_enev_usage(),
-                passInformation.getBenefitInformation(),
-                passInformation.getReservationInformation(),
-                passInformation.getRefundInformation()
-
+                passInformation.getProductDescription() != null ? passInformation.getProductDescription() : "",
+                passInformation.getMap_Url() != null ? passInformation.getMap_Url() : "",
+                passInformation.getStationNames() != null ? passInformation.getStationNames() : "",
+                passInformation.getBreak_even_usage() != null ? passInformation.getBreak_even_usage() : "",
+                passInformation.getBenefitInformation() != null ? passInformation.getBenefitInformation() : "",
+                passInformation.getReservationInformation() != null ? passInformation.getReservationInformation() : "",
+                passInformation.getRefundInformation() != null ? passInformation.getRefundInformation() : ""
         );
     }
+
 
     private PassSearchResultDTO convertToPassSearchResultDTO(PassInformation passInformation) {
         PassSearchResultDTO dto = new PassSearchResultDTO();

@@ -44,7 +44,7 @@ public class PassInformation {
     private String productDescription;
     private String stationNames;
     private String Map_Url;
-    private String break_enev_usage;
+    private String break_even_usage;
     private String routeInformation;
 
     public Integer getpassID() {
@@ -175,12 +175,12 @@ public class PassInformation {
         Map_Url = map_Url;
     }
 
-    public String getBreak_enev_usage() {
-        return break_enev_usage;
+    public String getBreak_even_usage() {
+        return break_even_usage;
     }
 
-    public void setBreak_enev_usage(String break_enev_usage) {
-        this.break_enev_usage = break_enev_usage;
+    public void setBreak_even_usage(String break_even_usage) {
+        this.break_even_usage = break_even_usage;
     }
 
     public String getRouteInformation() {

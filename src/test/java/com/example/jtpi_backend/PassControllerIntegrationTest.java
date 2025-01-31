@@ -57,10 +57,10 @@ public class PassControllerIntegrationTest {
     void testGetSlideShowNewPasses() throws Exception {
         // 데이터베이스에 있는 슬라이드쇼 새로운 패스를 예상값으로 설정
         List<SlideShowPassDTO> expectedSlideShowNewPasses = List.of(
-                new SlideShowPassDTO(10, "도쿄 모노레일 – 야마노테선 할인권", "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Tokyo_monorail.svg/1024px-Tokyo_monorail.svg.png"),
-                new SlideShowPassDTO(9, "에치고 투데이 패스", "https://www.jreast.co.jp/niigata/echigo-1day2daypass/img/2day-map.png"),
-                new SlideShowPassDTO(8, "도에이 지하철 원데이 패스", "“https://www.kotsu.metro.tokyo.jp/img/slider/global/slider_img_15.jpg"),
-                new SlideShowPassDTO(7, "도쿄 모노레일 1일권", "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Tokyo_monorail.svg/1024px-Tokyo_monorail.svg.png")
+                new SlideShowPassDTO(87, "에치고 원데이 패스", "https://www.jreast.co.jp/niigata/echigo-1day2daypass/img/1day-logo.png"),
+                new SlideShowPassDTO(18, "에치고 투데이 패스", "https://www.jreast.co.jp/niigata/echigo-1day2daypass/img/2day-logo.png"),
+                new SlideShowPassDTO(21, "모노레일과 야마노테선 할인 티켓", "https://www.tokyo-monorail.co.jp/common/template/img/tp_pc_logo.png"),
+                new SlideShowPassDTO(16, "도쿄 시내 패스(도쿠나이 패스)", "https://www.jreast.co.jp/multi/material/img/logo_jreast.png")
         );
 
         mockMvc.perform(get("/passes/slideshow/new"))
@@ -99,11 +99,11 @@ public void testSearchPasses() throws Exception {
     // 검색 파라미터 설정
     SearchParameters searchParams = new SearchParameters();
     searchParams.setsearchQuery("0");
-    searchParams.setDepartureCity("스 기도 하라 역");
+    searchParams.setDepartureCity("0");
     searchParams.setArrivalCity("0");
     searchParams.setTransportType("0");
-    searchParams.setRouteInformation("0");
-    searchParams.setDuration(0);
+    searchParams.setCityNames("0");
+    searchParams.setDuration(2);
     searchParams.setMinPrice(0);
     searchParams.setMaxPrice(0);
 
@@ -144,7 +144,8 @@ public void testGetPassDetail() throws Exception {
             .andExpect(status().isOk())  // HTTP 응답 상태가 200 OK인지 확인
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))  // 응답 Content-Type이 application/json인지 확인
             .andExpect(jsonPath("$.passId", is(existingPassId)))  // passId가 예상값과 일치하는지 확인
-            .andExpect(jsonPath("$.imageUrl", is("https://seeklogo.com/images/J/JR-East-logo-384C8D5973-seeklogo.com.png"))) // imageUrl이 예상값과 일치하는지 확인
+            .andExpect(jsonPath("$.imageUrl", is("https://www.haneda-tokyo-access.com/en/ticket/discount/img/index_bn06.jpg"))) // imageUrl이 예상값과 일치하는지 확인
+            .andExpect(jsonPath("$.length()").value(14))
             .andDo(print()); // 응답 내용을 콘솔에 출력
 }
 
