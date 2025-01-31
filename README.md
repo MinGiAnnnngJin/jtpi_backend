@@ -9,11 +9,10 @@
 
 ## 📌 REST API 명세서
 
-| 번호 | 기능                 | 엔드포인트                        | HTTP 메소드 | 요청 예시 | 응답 예시 | 설명 |
-|----|----------------|-----------------------------|------------|-----------|-----------|-----------|
-| 1  | 신규 슬라이드쇼 패스 | `/passes/slideshow/new` | GET | - | `[{ "id": 1, "title": "논비리 홀리데이 Suica 패스", "imageUrl": "https://seeklogo.com/images/J/JR-East-logo-384C8D5973-seeklogo.com.png"}]` | 최신 등록된 4개의 교통패스를 반환 |
-| 2  | 추천 슬라이드쇼 패스 | `/passes/slideshow/recommended` | GET | - | `[{ "id": 1, "title": "논비리 홀리데이 Suica 패스", "imageUrl": "https://seeklogo.com/images/J/JR-East-logo-384C8D5973-seeklogo.com.png"}]` | 추천 알고리즘을 기반으로 4개의 랜덤 교통패스를 반환 |
-| 3  | 패스 검색 | `/passes/search` | POST | `{ "searchQuery": "아오모리 홀리데이 패스", "departureCity": "0", "arrivalCity": "0", "transportType": "0", "cityNames": "0", "duration": 0, "minPrice": 0, "maxPrice": 0 }` | `[{ "passID": 2, "imageUrl": "https://www.jreast.co.jp/tickets/mapimg/2480-1.gif", "title": "아오모리 홀리데이 패스", "routeInformation": "아오모리", "price": "2520,1260" }]` | 사용자가 입력한 검색 조건에 맞는 패스 목록을 반환 |
-| 4  | 패스 상세 정보 | `/passes/{passId}` | GET | - | `{ "passId": 1, "imageUrl": "https://seeklogo.com/images/J/JR-East-logo-384C8D5973-seeklogo.com.png", "transportType": "전철", "title": "논비리 홀리데이 Suica 패스", "routeInformation": "도쿄", "price": "2670,1330", "period": 1, "productDescription": "패스 설명", "Map_Url": "지도 URL", "stationNames": "도쿄, 신주쿠", "break_even_usage": "3회 사용 시 본전", "benefit_information": "특정 노선 할인 혜택", "reservation_information": "사전 예약 가능", "refund_information": "환불 정책 적용" }` | 특정 패스의 상세 정보를 반환 |
-| 5  | 북마크된 패스 정보 | `/passes/bookmark` | POST | `[1, 2, 3]` | `[{ "passID": 1, "imageUrl": "https://seeklogo.com/images/J/JR-East-logo-384C8D5973-seeklogo.com.png", "title": "논비리 홀리데이 Suica 패스", "routeInformation": "도쿄", "price": "2670,1330" }]` | 사용자가 북마크한 패스 정보를 반환 |
-
+| 번호 | 기능 | 엔드포인트 | HTTP 메소드 | 설명 |
+|----|----------------|-----------------------------|------------|-----------|
+| 1  | 신규 슬라이드쇼 패스 | `/passes/slideshow/new` | GET | 최신 등록된 4개의 교통패스 반환 |
+| 2  | 추천 슬라이드쇼 패스 | `/passes/slideshow/recommended` | GET | 추천된 교통패스 4개 반환 |
+| 3  | 패스 검색 | `/passes/search` | POST | 조건 검색 결과 반환 |
+| 4  | 패스 상세 정보 | `/passes/{passId}` | GET | 특정 패스의 상세 정보 반환 |
+| 5  | 북마크된 패스 정보 | `/passes/bookmark` | POST | 북마크한 패스 목록 반환 |
