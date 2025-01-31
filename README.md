@@ -7,28 +7,28 @@
 
 ## 📌 기술 스택
 
-
+<p>
+  <img src="https://img.shields.io/badge/Java-F89820?style=flat&logo=java&logoColor=white"/>
+  <img src="https://img.shields.io/badge/SpringBoot-6DB33F?style=flat&logo=spring-boot&logoColor=white"/>
+</p>
 
 ---
+
 
 ## 📌 개발 배경 및 필요성
 ![배경1](images/background.png)
 ![배경2](images/background2.png)
 
 
-
 ---
 
-## 📌 구현 기능
-![1](images/one.png)
-![2](images/two.png)
-![3](images/three.png)
-
-
----
 
 ## 📌 시스템 구성도
 ![시스템 구성도](images/system-architecture.png)
+
+Spring Boot 기반의 백엔드 서버는 Amazon EC2에서 실행됩니다.
+Flutter 기반의 프론트엔드와 API를 통해 통신합니다.
+Python 기반 크롤러는 최신 교통패스 데이터를 수집하여 MySQL 데이터베이스에 저장합니다.
 
 ---
 
@@ -37,13 +37,8 @@
 
 ---
 
-## 📌 백엔드 클래스 다이어그
+## 📌 백엔드 클래스 다이어그램 
 ![백엔드 클래스 다이어그램](images/backend-class-diagram.png)
-
----
-
-## 📌 API 시퀀스 다이어그램
-![시퀀스 다이어그램](images/sequence diagram.png)
 
 ---
 
@@ -62,9 +57,10 @@
 
 ---
 
-## 📌 API 실행 방법  
+## 📌 주요 기능 
+![1](images/one.png)
+![2](images/two.png)
+![3](images/three.png)
 
-1. **프로젝트 클론**  
-   ```sh
-   git clone https://github.com/MinGiAnnnngJin/jtpi_backend.git
-   cd jtpi_backend
+
+---
