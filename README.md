@@ -16,10 +16,10 @@
 | 3  | 패스 검색 | `/passes/search` | POST | 조건 검색 결과 반환 |
 | 4  | 패스 상세 정보 | `/passes/{passId}` | GET | 특정 패스의 상세 정보 반환 |
 | 5  | 북마크된 패스 정보 | `/passes/bookmark` | POST | 북마크한 패스 목록 반환 |
-### 📝 요청 예시 (패스 검색 API)
-```json
+### 📝 요청 예시 (패스 검색 API) -----------------------------|
+```json-----------------------------|
 {
-  "searchQuery": "아오모리 홀리데이 패스",
+  "searchQuery": "아오모리 홀리데이 패스",-----------------------------|
   "departureCity": "0",
   "arrivalCity": "0",
   "transportType": "0",
