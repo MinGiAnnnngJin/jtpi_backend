@@ -32,7 +32,7 @@ Python 기반 크롤러는 최신 교통패스 데이터를 수집하여 MySQL �
 
 ---
 
-## 📌 ERD (데이터 모델)
+## 📌 ERD 
 ![ERD](images/ER.png)
 
 ---
