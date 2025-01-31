@@ -22,8 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class PassController {
 
     private static final Logger logger = LoggerFactory.getLogger(PassController.class);
-
-
     private final PassService passService;
 
     @Autowired
@@ -42,7 +40,6 @@ public class PassController {
         return passService.fetchSlideShowRecommendedPasses();
     }
     //검색
-
     @PostMapping("/search")
     public List<PassSearchResultDTO> searchPasses(@RequestBody SearchParameters searchParams) {
         logger.info("Received search request with parameters: {}", searchParams);
