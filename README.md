@@ -12,13 +12,23 @@
 ---
 
 ## 📌 개발 배경 및 필요성
-일본 여행객들은 다양한 교통 패스를 활용하지만, 정보가 흩어져 있어 검색이 어렵고, 최적의 패스를 선택하기 어렵습니다.  
-본 프로젝트는 사용자가 쉽게 교통 패스를 검색하고, 상세 정보를 확인하며, 필요한 패스를 북마크할 수 있도록 돕습니다.
+![배경1](images/background.png)
+![배경2](images/background2.png)
+
+
+
+---
+
+## 📌 구현 기능
+![1](images/one.png)
+![2](images/two.png)
+![3](images/three.png)
+
 
 ---
 
 ## 📌 시스템 구성도
-![시스템 구성도](images/시스템 구성도.PNG)
+![시스템 구성도](images/system-architecture.png)
 
 ---
 
@@ -27,13 +37,13 @@
 
 ---
 
-## 📌 백엔드 아키텍처
-![백엔드 클래스 다이어그램](images/백엔드 클래스다이어그램.png)
+## 📌 백엔드 클래스 다이어그
+![백엔드 클래스 다이어그램](images/backend-class-diagram.png)
 
 ---
 
 ## 📌 API 시퀀스 다이어그램
-![시퀀스 다이어그램](images/시퀀스다이어그램.png)
+![시퀀스 다이어그램](images/sequence diagram.png)
 
 ---
 
